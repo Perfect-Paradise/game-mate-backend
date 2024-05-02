@@ -16,7 +16,7 @@ class GithubOAuthUserService(
         val name = githubOAuth2User["name"] as String
 
         val githubOAuthUser = githubOAuthUserRepository.findById(id)
-            .orElse(createGithubOAuthUser(id, name))
+            .orElseGet { createGithubOAuthUser(id, name) }
 
         return jwtService.generateToken(githubOAuthUser.platformUser)
     }
