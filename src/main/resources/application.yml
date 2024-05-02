@@ -2,4 +2,4 @@ spring:
   application:
     name: game-mate-backend
   config:
-    import: classpath:oauth2.yml,classpath:db.yml
+    import: classpath:oauth2.yml,classpath:db.yml,classpath:jwt.yml

@@ -15,18 +15,43 @@
 <h1>Demo</h1>
 
 <div class="container unauthenticated">
-    With GitHub: <a href="/oauth2/authorization/github">click here</a>
+    With GitHub:
+    <button onclick="openOAuthWindow()">click here</button>
+
+    <div id="userInfo">Not logged in</div>
 </div>
-<div class="container authenticated" style="display:none">
-    Logged in as: <span id="user"></span>
-</div>
+
+
+<script>
+    function openOAuthWindow() {
+        const oauthWindow = window.open('/oauth2/authorization/github', 'oauthWindow', 'height=600,width=450');
+        if (window.focus) {
+            oauthWindow.focus();
+        }
+
+        // Listen for message from the OAuth window
+        window.addEventListener('message', function (event) {
+            // Store the token in local storage
+            localStorage.setItem('token', event.data);
+
+            // Close the OAuth window
+            oauthWindow.close();
+
+            // Call /user/info endpoint
+            fetch('/user/info', {
+                headers: {
+                    'Authorization': 'Bearer ' + event.data
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Display user info
+                    document.getElementById('userInfo').innerText = JSON.stringify(data);
+                });
+        });
+
+    }
+</script>
+
 </body>
 </html>
-
-<script type="text/javascript">
-    $.get("/user", function (data) {
-        $("#user").html("ID: " + data.id + ", Name: " + data.name + ", Avatar URL: " + data.avatarUrl);
-        $(".unauthenticated").hide()
-        $(".authenticated").show()
-    });
-</script>

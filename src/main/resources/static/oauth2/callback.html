@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>OAuth2 Callback</title>
+</head>
+<body>
+<script>
+    // Extract the token from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    // Send the token to the parent window
+    window.opener.postMessage(token, '*');
+</script>
+</body>
+</html>

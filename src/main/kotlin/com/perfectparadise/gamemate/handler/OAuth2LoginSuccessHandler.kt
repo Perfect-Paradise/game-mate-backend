@@ -1,7 +1,5 @@
 package com.perfectparadise.gamemate.handler
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.perfectparadise.gamemate.model.response.LoginResponse
 import com.perfectparadise.gamemate.service.GithubOAuthUserService
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -27,11 +25,7 @@ class OAuth2LoginSuccessHandler(
             else -> throw IllegalArgumentException("Unsupported registrationId: $registrationId")
         }
 
-        val loginResponse = LoginResponse(token)
-
-        // Set content type to JSON
-        response.contentType = "application/json"
-        // Write the token to the response body
-        response.writer.write(ObjectMapper().writeValueAsString(loginResponse))
+        // Redirect to a page on your domain with the token in the URL
+        response.sendRedirect("/oauth2/callback.html?token=$token")
     }
 }

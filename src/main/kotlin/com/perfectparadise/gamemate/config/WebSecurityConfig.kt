@@ -1,27 +1,34 @@
 package com.perfectparadise.gamemate.config
 
+import com.perfectparadise.gamemate.filter.JwtTokenFilter
 import com.perfectparadise.gamemate.handler.OAuth2LoginSuccessHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.HttpStatusEntryPoint
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig(
-    private val oAuth2LoginSuccessHandler: OAuth2LoginSuccessHandler
+    private val oAuth2LoginSuccessHandler: OAuth2LoginSuccessHandler,
+    private val jwtTokenFilter: JwtTokenFilter,
 ) {
 
     @Bean
     fun apiFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .sessionManagement {
+                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/index.html", "/webjars/**").permitAll()
+                    .requestMatchers("/index.html", "/oauth2/callback.html", "/webjars/**").permitAll()
                     .anyRequest().authenticated()
             }
             .exceptionHandling { e ->
@@ -34,6 +41,7 @@ class WebSecurityConfig(
                     .successHandler(oAuth2LoginSuccessHandler)
             }
 
+        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
 }
