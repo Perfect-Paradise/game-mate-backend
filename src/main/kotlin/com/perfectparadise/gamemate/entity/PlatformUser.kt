@@ -1,5 +1,6 @@
 package com.perfectparadise.gamemate.entity
 
+import com.perfectparadise.gamemate.model.request.UpdateUserInfoRequest
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
@@ -11,7 +12,13 @@ data class PlatformUser(
     @GeneratedValue
     val id: Long = 0, // 0 is a dummy value
 
-    val displayName: String,
+    var displayName: String,
 
-    val description: String,
-)
+    var description: String,
+) {
+
+    fun partialUpdate(request: UpdateUserInfoRequest) {
+        request.displayName?.let { displayName = it }
+        request.description?.let { description = it }
+    }
+}

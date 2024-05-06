@@ -13,11 +13,7 @@ class JwtTokenFilter(
     private val jwtService: JwtService,
 ) : OncePerRequestFilter() {
 
-    override fun doFilterInternal(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        filterChain: FilterChain
-    ) {
+    override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         // skip if the request is authenticated
         if (SecurityContextHolder.getContext().authentication != null) {
             filterChain.doFilter(request, response)

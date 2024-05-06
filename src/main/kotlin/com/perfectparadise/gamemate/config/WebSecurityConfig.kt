@@ -23,6 +23,8 @@ class WebSecurityConfig(
     @Bean
     fun apiFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .csrf { it.disable() }
+            .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter::class.java)
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
@@ -41,7 +43,6 @@ class WebSecurityConfig(
                     .successHandler(oAuth2LoginSuccessHandler)
             }
 
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
     }
 }
