@@ -25,12 +25,17 @@ class JwtService(
     }
 
     fun parseToken(token: String): PlatformAuthentication {
-        val userId = Jwts.parser()
-            .verifyWith(key)
-            .build()
-            .parseSignedClaims(token)
-            .payload
-            .subject
+        val userId: String
+        try {
+            userId = Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .payload
+                .subject
+        } catch (e: Exception) {
+            throw IllegalArgumentException("Invalid token")
+        }
 
         val platformUser = platformUserRepository.findById(userId.toLong())
             .orElseThrow { IllegalArgumentException("Invalid token") }
