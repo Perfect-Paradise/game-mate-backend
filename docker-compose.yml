@@ -1,0 +1,8 @@
+services:
+  game-mate-backend:
+    build:
+      context: .
+    environment:
+      - DB_URL=jdbc:postgresql://host.docker.internal:5432/game_mate
+    ports:
+      - "8080:8080"

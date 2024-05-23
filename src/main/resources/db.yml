@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/game_mate
-    username: backend
-    password: backend
+    username: ${DB_USERNAME:backend}
+    password: ${DB_PASSWORD:backend}
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

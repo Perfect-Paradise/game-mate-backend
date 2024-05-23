@@ -1,2 +1,2 @@
 jwt:
-  secret: "bYUq2ZQVG4ILl++fEi51Oc4ViRfj+C3hlYxAjxwE+eU="
+  secret: ${JWT_SECRET:bYUq2ZQVG4ILl++fEi51Oc4ViRfj+C3hlYxAjxwE+eU=}
