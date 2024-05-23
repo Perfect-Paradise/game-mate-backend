@@ -3,6 +3,7 @@ services:
     build:
       context: .
     environment:
-      - DB_URL=jdbc:postgresql://host.docker.internal:5432/game_mate
+      - DB_HOST=host.docker.internal
     ports:
       - "8080:8080"
+      - "5432:5432"

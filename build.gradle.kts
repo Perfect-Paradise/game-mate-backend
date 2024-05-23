@@ -34,7 +34,6 @@ dependencies {
         exclude(group = "org.mockito", module = "mockito-core")
     }
     runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("com.h2database:h2")
 
     testImplementation("com.ninja-squad:springmockk:4.0.2")
 
@@ -50,6 +49,10 @@ dependencies {
 
     // for logging
     implementation("io.github.oshai:kotlin-logging-jvm:6.0.9")
+
+    // for retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-jackson:2.11.0")
 }
 
 tasks.withType<KotlinCompile> {
@@ -61,4 +64,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.bootJar {
+    archiveBaseName.set("app")
+    archiveVersion.set("")
+    archiveExtension.set("jar")
 }

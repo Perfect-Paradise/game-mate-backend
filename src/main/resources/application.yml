@@ -7,3 +7,5 @@ spring:
       classpath:oauth2.yml,
       classpath:db.yml,
     ]
+server:
+  port: ${PORT:8080}
