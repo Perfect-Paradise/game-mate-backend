@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest // for integration tests
 @AutoConfigureMockMvc
-class GameMateBackendApplicationTests {
+class GameMateBackendIntegrationTests {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
