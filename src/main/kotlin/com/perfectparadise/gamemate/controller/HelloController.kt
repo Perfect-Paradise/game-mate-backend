@@ -1,5 +1,6 @@
 package com.perfectparadise.gamemate.controller
 
+import com.perfectparadise.gamemate.exception.NotFoundException
 import com.perfectparadise.gamemate.service.HelloService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -13,5 +14,10 @@ class HelloController(
     @GetMapping("/hello")
     fun hello(@RequestParam name: String): String {
         return helloService.helloToYou(name)
+    }
+
+    @GetMapping("/hello/not-found")
+    fun helloNotFound(): String {
+        throw NotFoundException("Not found")
     }
 }

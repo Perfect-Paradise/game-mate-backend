@@ -4,9 +4,7 @@ import com.ninjasquad.springmockk.MockkBean
 import com.perfectparadise.gamemate.service.HelloService
 import com.perfectparadise.gamemate.service.JwtService
 import io.mockk.every
-import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
@@ -16,7 +14,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@ExtendWith(MockKExtension::class)
 @WebMvcTest(
     HelloController::class,
     excludeAutoConfiguration = [SecurityAutoConfiguration::class, OAuth2ClientAutoConfiguration::class],
@@ -30,6 +27,7 @@ class HelloControllerTest {
     private lateinit var helloService: HelloService
 
     @MockkBean
+    @Suppress("unused")
     private lateinit var jwtService: JwtService
 
     @Test
@@ -39,5 +37,11 @@ class HelloControllerTest {
         mockMvc.perform(get("/hello?name=World"))
             .andExpect(status().isOk)
             .andExpect(content().string("Hello, World!"))
+    }
+
+    @Test
+    fun helloNotFoundTest() {
+        mockMvc.perform(get("/hello/not-found"))
+            .andExpect(status().isNotFound)
     }
 }
