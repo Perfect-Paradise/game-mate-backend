@@ -6,6 +6,7 @@ spring:
       classpath:jwt.yml,
       classpath:oauth2.yml,
       classpath:db.yml,
+      classpath:socketio.yml,
     ]
 server:
   port: ${PORT:8080}

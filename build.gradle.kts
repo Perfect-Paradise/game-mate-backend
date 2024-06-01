@@ -53,6 +53,9 @@ dependencies {
     // for retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-jackson:2.11.0")
+
+    // https://mvnrepository.com/artifact/com.corundumstudio.socketio/netty-socketio
+    implementation("com.corundumstudio.socketio:netty-socketio:2.0.9")
 }
 
 tasks.withType<KotlinCompile> {

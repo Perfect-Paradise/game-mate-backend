@@ -1,0 +1,4 @@
+socket-io:
+  server:
+    host: ${SOCKET_SERVER_HOST:localhost}
+    port: ${SOCKET_SERVER_PORT:8081}
