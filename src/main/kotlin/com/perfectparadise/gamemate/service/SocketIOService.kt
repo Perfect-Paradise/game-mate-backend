@@ -5,7 +5,6 @@ import com.corundumstudio.socketio.SocketIOServer
 import com.corundumstudio.socketio.listener.ConnectListener
 import com.corundumstudio.socketio.listener.DisconnectListener
 import com.perfectparadise.gamemate.model.authentication.PlatformAuthentication
-import com.perfectparadise.gamemate.model.authentication.anonymousAuthentication
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.context.SmartLifecycle
 import org.springframework.stereotype.Service
@@ -54,7 +53,7 @@ class SocketIOService(
     private fun authenticate(client: SocketIOClient): Boolean {
         val token = client.handshakeData.getSingleUrlParam("token")
         if (token == null) {
-            val platformAuthentication = anonymousAuthentication()
+            val platformAuthentication = PlatformAuthentication.anonymousAuthentication()
             logger.info { "Anonymous client" }
             client.setAuthentication(platformAuthentication)
             return true

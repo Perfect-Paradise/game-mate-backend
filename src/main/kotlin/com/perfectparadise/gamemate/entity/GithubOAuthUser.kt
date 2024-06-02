@@ -12,6 +12,10 @@ data class GithubOAuthUser(
 
     val name: String,
 
+    val email: String?,
+
+    val avatarUrl: String,
+
     @OneToOne
     val platformUser: PlatformUser
 )

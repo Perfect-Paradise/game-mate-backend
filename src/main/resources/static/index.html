@@ -45,8 +45,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    // Display user info
-                    document.getElementById('userInfo').innerText = JSON.stringify(data);
+                    // Display avatarUrl from data
+                    document.getElementById('userInfo').innerHTML = "<img src='" + data.avatarUrl + "'/>" + "<br>" + JSON.stringify(data);
                 });
         });
 

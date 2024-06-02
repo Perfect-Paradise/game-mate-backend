@@ -5,13 +5,6 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 
-fun anonymousAuthentication(): PlatformAuthentication {
-    return PlatformAuthentication(
-        PlatformUser(0, "Anonymous User", ""),
-        false
-    )
-}
-
 data class PlatformAuthentication(
     val platformUser: PlatformUser,
     val authenticated: Boolean,
@@ -20,6 +13,18 @@ data class PlatformAuthentication(
     companion object {
         fun getFromSecurityContext(): PlatformAuthentication {
             return SecurityContextHolder.getContext().authentication as PlatformAuthentication
+        }
+
+        fun anonymousAuthentication(): PlatformAuthentication {
+            return PlatformAuthentication(
+                PlatformUser(
+                    id = 0,
+                    displayName = "Anonymous",
+                    avatarUrl = "",
+                    description = ""
+                ),
+                false
+            )
         }
     }
 
