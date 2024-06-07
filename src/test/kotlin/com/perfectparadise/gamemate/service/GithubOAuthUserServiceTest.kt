@@ -1,8 +1,7 @@
 package com.perfectparadise.gamemate.service
 
-import com.perfectparadise.gamemate.entity.GithubOAuthUser
-import com.perfectparadise.gamemate.entity.PlatformUser
 import com.perfectparadise.gamemate.repository.GithubOAuthUserRepository
+import com.perfectparadise.gamemate.util.mockGithubOAuthUser
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -32,10 +31,8 @@ class GithubOAuthUserServiceTest {
     @Test
     fun `login should call generateToken with correct argument`() {
         // arrange
-        val githubOAuth2User = mapOf("id" to 1, "name" to "test")
-        val expectedGithubOAuthUser = GithubOAuthUser(
-            1L, "test", PlatformUser(1L, "test", "test")
-        )
+        val githubOAuth2User = mapOf("id" to 1, "name" to "test", "avatar_url" to "test")
+        val expectedGithubOAuthUser = mockGithubOAuthUser()
 
         every { githubOAuthUserRepository.findById(any()) } returns Optional.of(expectedGithubOAuthUser)
         every { jwtService.generateToken(any()) } returns "testToken"

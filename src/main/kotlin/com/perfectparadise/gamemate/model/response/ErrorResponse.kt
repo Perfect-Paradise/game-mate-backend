@@ -7,5 +7,6 @@ data class ErrorResponse(
 
 enum class ErrorType {
     NOT_FOUND,
+    INVALID_INPUT,
     INTERNAL_SERVER_ERROR,
 }

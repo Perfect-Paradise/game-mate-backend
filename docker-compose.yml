@@ -7,3 +7,11 @@ services:
     ports:
       - "8080:8080"
       - "5432:5432"
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: backend
+      POSTGRES_PASSWORD: backend
+      POSTGRES_DB: game_mate
+    ports:
+      - "5432:5432"

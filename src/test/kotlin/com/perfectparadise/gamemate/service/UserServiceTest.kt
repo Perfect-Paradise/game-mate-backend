@@ -1,9 +1,9 @@
 package com.perfectparadise.gamemate.service
 
-import com.perfectparadise.gamemate.entity.PlatformUser
 import com.perfectparadise.gamemate.model.authentication.PlatformAuthentication
 import com.perfectparadise.gamemate.model.request.UpdateUserInfoRequest
 import com.perfectparadise.gamemate.repository.PlatformUserRepository
+import com.perfectparadise.gamemate.util.mockPlatformUser
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -26,14 +26,18 @@ class UserServiceTest {
     fun `should create platform user`() {
         // arrange
         val displayName = "test"
+        val email = "test@test.com"
+        val avatarUrl = "test"
 
         every { platformUserRepository.save(any()) } answers { firstArg() }
 
         // act
-        val result = userService.createPlatformUser(displayName)
+        val result = userService.createPlatformUser(displayName, email, avatarUrl)
 
         // assert
         assertEquals(displayName, result.displayName)
+        assertEquals(email, result.email)
+        assertEquals(avatarUrl, result.avatarUrl)
         assertEquals("I am a good person.", result.description)
     }
 
@@ -42,12 +46,10 @@ class UserServiceTest {
         // arrange
         val request = UpdateUserInfoRequest(
             displayName = "new name",
+            avatarUrl = "new url",
             description = "new description"
         )
-        val platformUser = PlatformUser(
-            displayName = "old name",
-            description = "old description"
-        )
+        val platformUser = mockPlatformUser()
 
         val mockPlatformAuthentication = PlatformAuthentication(platformUser, true)
         mockkObject(PlatformAuthentication.Companion)
@@ -59,6 +61,7 @@ class UserServiceTest {
 
         // assert
         assertEquals(request.displayName, result.displayName)
+        assertEquals(request.avatarUrl, result.avatarUrl)
         assertEquals(request.description, result.description)
     }
 }

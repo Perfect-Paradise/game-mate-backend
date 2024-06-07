@@ -12,10 +12,12 @@ class UserService(
     private val platformUserRepository: PlatformUserRepository
 ) {
 
-    fun createPlatformUser(displayName: String): PlatformUser {
+    fun createPlatformUser(displayName: String, email: String?, avatarUrl: String): PlatformUser {
         return platformUserRepository.save(
             PlatformUser(
                 displayName = displayName,
+                email = email,
+                avatarUrl = avatarUrl,
                 description = "I am a good person."
             )
         )

@@ -6,6 +6,7 @@ import com.perfectparadise.gamemate.model.response.ErrorType
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
@@ -34,6 +35,17 @@ class ExceptionControllerAdvice {
                 message = e.message ?: "Not found"
             ),
             HttpStatus.NOT_FOUND
+        )
+    }
+
+    @ExceptionHandler(value = [IllegalArgumentException::class, MethodArgumentNotValidException::class])
+    fun handleIllegalArgumentException(e: Exception): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(
+            ErrorResponse(
+                errorType = ErrorType.INVALID_INPUT,
+                message = e.message ?: "The request is invalid"
+            ),
+            HttpStatus.BAD_REQUEST
         )
     }
 }

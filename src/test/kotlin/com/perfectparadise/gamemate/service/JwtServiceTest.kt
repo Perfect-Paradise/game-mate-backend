@@ -1,7 +1,7 @@
 package com.perfectparadise.gamemate.service
 
-import com.perfectparadise.gamemate.entity.PlatformUser
 import com.perfectparadise.gamemate.repository.PlatformUserRepository
+import com.perfectparadise.gamemate.util.mockPlatformUser
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -26,7 +26,7 @@ class JwtServiceTest {
     @Test
     fun `should generate token`() {
         // arrange
-        val platformUser = PlatformUser(1L, "test", "test")
+        val platformUser = mockPlatformUser()
 
         // act
         val result = jwtService.generateToken(platformUser)
@@ -38,7 +38,7 @@ class JwtServiceTest {
     @Test
     fun `should parse token`() {
         // arrange
-        val platformUser = PlatformUser(1L, "test", "test")
+        val platformUser = mockPlatformUser()
         val token = jwtService.generateToken(platformUser)
 
         every { platformUserRepository.findById(any()) } returns Optional.of(platformUser)
