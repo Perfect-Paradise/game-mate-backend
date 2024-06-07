@@ -11,13 +11,15 @@
 
 ### 2024/06/07
 
-1. Imported Flyway db versioning tool
+1. Import postgresql server in docker-compose
+    - If you want to only start db (without application), run `docker compose up db`
+2. Imported Flyway db versioning tool
     - If you have existing db, please first drop all tables and run this application
     - On application startup, it will automatically pick the migration files (from `src/main/resources/db/migration`)
     - Flyway will create a table `flyway_schema_history` to record the execution of migration files
     - In the future, if you define new table, you should also provide the sql migration file to the above path
     - Additional note: it is convenient to use tool like "JPA Buddy" to generate sql from entity definition
-2. Implement email/password signup and login APIs (and also updated to Postman collection)
+3. Implement email/password signup and login APIs (and also updated to Postman collection)
     - There is a default account with email: `test@gmail.com` and password: `password` being inserted directly by the
       Flyway sql file.
     - You can register new account by `/auth/signup` API.
