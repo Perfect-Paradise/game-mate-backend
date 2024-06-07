@@ -9,13 +9,13 @@ data class UserInfoResponse(
 
     val email: String?,
 
-    val avatarUrl: String,
+    val avatarUrl: String?,
 
-    val description: String,
+    val description: String?,
 ) {
     companion object {
         fun from(platformUser: PlatformUser): UserInfoResponse = UserInfoResponse(
-            id = platformUser.id,
+            id = platformUser.id!!,
             displayName = platformUser.displayName,
             email = platformUser.email,
             avatarUrl = platformUser.avatarUrl,

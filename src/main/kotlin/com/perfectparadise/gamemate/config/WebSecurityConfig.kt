@@ -31,7 +31,7 @@ class WebSecurityConfig(
             .authorizeHttpRequests {
                 it
                     .requestMatchers("/index.html", "/oauth2/callback.html", "/webjars/**").permitAll()
-                    .requestMatchers("/hello/**").permitAll()
+                    .requestMatchers("/hello/**", "/auth/**").permitAll()
                     .anyRequest().authenticated()
             }
             .exceptionHandling { e ->
