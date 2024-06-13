@@ -12,8 +12,6 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class SocketIOConfig(
-    @Value("\${socket-io.server.host}")
-    val host: String,
     @Value("\${socket-io.server.port}")
     val port: Int,
 ) {
@@ -21,7 +19,6 @@ class SocketIOConfig(
     @Bean
     fun socketIOServer(): SocketIOServer {
         val config = com.corundumstudio.socketio.Configuration()
-        config.hostname = host
         config.port = port
         config.jsonSupport = CustomJacksonJsonSupport()
 

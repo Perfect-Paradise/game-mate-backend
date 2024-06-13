@@ -3,10 +3,11 @@ services:
     build:
       context: .
     environment:
-      - DB_HOST=host.docker.internal
+      - DB_HOST=db
+      - DB_PORT=5432
     ports:
       - "8080:8080"
-      - "5432:5432"
+      - "8081:8081"
   db:
     image: postgres:16
     environment:

@@ -2,6 +2,7 @@ package com.perfectparadise.gamemate.service
 
 import com.perfectparadise.gamemate.entity.GithubOAuthUser
 import com.perfectparadise.gamemate.repository.GithubOAuthUserRepository
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,6 +12,7 @@ class GithubOAuthUserService(
     private val githubOAuthUserRepository: GithubOAuthUserRepository,
 ) {
 
+    @Transactional
     fun login(githubOAuth2User: Map<String, Any>): String {
         val id = (githubOAuth2User["id"] as Int).toLong()
         val name = githubOAuth2User["name"] as String
