@@ -76,9 +76,12 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+springBoot {
+    mainClass.set("com.perfectparadise.gamemate.GameMateBackendApplicationKt")
+}
+
 tasks.bootJar {
     archiveBaseName.set("app")
     archiveVersion.set("")
     archiveExtension.set("jar")
-    mainClass.set("com.perfectparadise.gamemate.GameMateBackendApplicationKt")
 }
