@@ -32,6 +32,7 @@ class WebSecurityConfig(
                 it
                     .requestMatchers("/index.html", "/oauth2/callback.html", "/webjars/**").permitAll()
                     .requestMatchers("/hello/**", "/auth/**").permitAll()
+                    .requestMatchers("/actuator/**").permitAll()
                     .anyRequest().authenticated()
             }
             .exceptionHandling { e ->

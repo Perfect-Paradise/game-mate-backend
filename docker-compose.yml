@@ -5,9 +5,9 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=5432
+      - PORT=10000
     ports:
-      - "8080:8080"
-      - "8081:8081"
+      - "10000:10000"
   db:
     image: postgres:16
     environment:
