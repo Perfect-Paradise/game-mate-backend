@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.2.4"
+    id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.4"
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
@@ -35,6 +35,7 @@ dependencies {
         exclude(group = "org.mockito", module = "mockito-core")
     }
     runtimeOnly("org.postgresql:postgresql")
+    testImplementation("com.h2database:h2")
 
     testImplementation("com.ninja-squad:springmockk:4.0.2")
 
@@ -56,7 +57,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-jackson:2.11.0")
 
     // https://mvnrepository.com/artifact/com.corundumstudio.socketio/netty-socketio
-    implementation("com.corundumstudio.socketio:netty-socketio:2.0.9")
+    implementation("com.corundumstudio.socketio:netty-socketio:2.0.11")
 }
 
 allOpen {
@@ -74,6 +75,7 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    systemProperty("spring.profiles.active", "test")
 }
 
 springBoot {
